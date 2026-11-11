@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contourframe Studio</title>
+  <link rel="icon" href="./assets/contourframe.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./studio.js"></script>
+</head>
+<body>
+  <header><div class="frame nav"><a href="/"><img src="./assets/contourframe.svg" width="34" height="34" alt="">Contourframe</a><a href="#studio">Open studio</a></div></header>
+  <main>
+    <section class="hero">
+      <div class="frame hero-grid">
+        <div><p class="eyebrow">Map animation studio</p><h1>Put your story on the map.</h1><p>Try a camera move, highlight, and route with An Alpine Crossing.</p><a class="action" href="#studio">Edit the sample</a></div>
+        <video controls playsinline preload="metadata" src="./assets/alpine-crossing.mp4" aria-label="An Alpine Crossing sample render"></video>
+      </div>
+    </section>
+    <section class="frame studio" id="studio" aria-labelledby="studio-title">
+      <h2 id="studio-title">Sample editor</h2>
+      <p>Change the title, highlight, or timing. The preview uses original schematic terrain.</p>
+      <div class="editor-grid">
+        <form id="scene-settings">
+          <label for="title">Title</label><input id="title" name="title" maxlength="80" required>
+          <label for="duration">Duration in seconds</label><input id="duration" name="duration" type="number" min="2" max="12" step="1" required>
+          <label for="highlight">Highlight color</label><input id="highlight" name="highlight" type="color">
+          <div class="controls"><button type="submit">Save</button><button type="button" id="play">Preview</button></div>
+        </form>
+        <div>
+          <div id="preview" class="preview"></div>
+          <div class="controls"><button type="button" id="export">Export WebM</button><button type="button" id="cancel" disabled>Cancel export</button></div>
+          <p id="status" role="status"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="frame">Contourframe Studio · 0.1.0-rc.1</footer>
+</body>
+</html>

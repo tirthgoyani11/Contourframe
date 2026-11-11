@@ -2,39 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Contourframe Studio</title>
-  <link rel="icon" href="./assets/contourframe.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./studio.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create animated maps with camera moves, highlights, and labels in Contourframe Studio.">
+  <meta name="theme-color" content="#100e2f">
+  <title>Contourframe Studio | Animated Map Editor</title>
+  <link rel="icon" href="/assets/contourframe.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/home.css">
+  <script src="/home.js" defer></script>
 </head>
 <body>
-  <header><div class="frame nav"><a href="./"><img src="./assets/contourframe.svg" width="34" height="34" alt="">Contourframe</a><a href="#studio">Open studio</a></div></header>
-  <main>
-    <section class="hero">
-      <div class="frame hero-grid">
-        <div><p class="eyebrow">Map animation studio</p><h1>Put your story on the map.</h1><p>Try a camera move, highlight, and route with An Alpine Crossing.</p><a class="action" href="#studio">Edit the sample</a></div>
-        <video controls playsinline preload="metadata" src="./assets/alpine-crossing.mp4" aria-label="An Alpine Crossing sample render"></video>
+  <header class="masthead">
+    <nav class="nav frame" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="Contourframe home"><img src="/assets/contourframe.svg" width="36" height="36" alt="">Contourframe</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="http://localhost:8000/studio" class="nav-action">Open local studio <span aria-hidden="true">↗</span></a>
       </div>
-    </section>
-    <section class="frame studio" id="studio" aria-labelledby="studio-title">
-      <h2 id="studio-title">Sample editor</h2>
-      <p>Change the title, highlight, or timing. The preview uses original schematic terrain.</p>
-      <div class="editor-grid">
-        <form id="scene-settings">
-          <label for="title">Title</label><input id="title" name="title" maxlength="80" required>
-          <label for="duration">Duration in seconds</label><input id="duration" name="duration" type="number" min="2" max="12" step="1" required>
-          <label for="highlight">Highlight color</label><input id="highlight" name="highlight" type="color">
-          <div class="controls"><button type="submit">Save</button><button type="button" id="play">Preview</button></div>
-        </form>
-        <div>
-          <div id="preview" class="preview"></div>
-          <div class="controls"><button type="button" id="export">Export WebM</button><button type="button" id="cancel" disabled>Cancel export</button></div>
-          <p id="status" role="status"></p>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas id="hero-map" aria-hidden="true"></canvas>
+      <div class="frame hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Map animation studio</p>
+          <h1 id="hero-title">Put your story<br>on the map.</h1>
+          <p class="intro">Build animated map stories with camera moves, highlights, and labels. Open the full editor running on your computer.</p>
+          <a class="primary-action" href="http://localhost:8000/studio">Open local studio <span aria-hidden="true">↗</span></a>
+          <div class="launcher-links">
+            <a href="#local-setup">Set up the local studio</a>
+            <a href="/studio.html">Try the browser sample</a>
+          </div>
         </div>
       </div>
     </section>
+    <section class="features frame" id="features" aria-labelledby="features-title">
+      <h2 id="features-title">Explore the full studio</h2>
+      <p class="section-intro">The full local studio supports the workflows below. Project storage and rendering run on your computer when you open the local studio.</p>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-media camera-demo" aria-hidden="true"><span class="camera-frame" aria-hidden="true"></span></div>
+          <h3>Camera moves and timeline</h3><p>Use top-down, fly-to, orbit, or cinematic sweep transitions. Set where each move starts and ends, adjust its duration, and scrub the timeline to preview the timing.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-media style-demo" aria-hidden="true"></div>
+          <h3>Map styles and highlights</h3><p>Switch between light, dark, and satellite basemaps. Group countries into scenes and use fills and borders to direct attention as the story moves across the map.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-media route-demo" aria-hidden="true"><span class="route-line"></span><span class="route-point"></span><span class="map-label">Route</span></div>
+          <h3>Travel routes and annotations</h3><p>Draw a route or import a GPX track. Add labels, arrows, images, and map icons to explain where things happened and how locations connect.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-media sticker-demo" aria-hidden="true"></div>
+          <h3>Motion stickers and 3D models</h3><p>Browse animated stickers by category or search for a specific overlay. Place 3D objects on the map to illustrate vehicles, buildings, and landmarks in a scene.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-media history-demo" aria-hidden="true"></div>
+          <h3>Historical maps and changing borders</h3><p>Explore the historical boundary layers included in the editor. Animate territorial changes across scenes to show how a boundary shifts over time.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-media script-demo" aria-hidden="true"><span>01 · Introduce the region</span><span>02 · Follow the route</span><span>03 · Show the destination</span></div>
+          <h3>Script to Video and AI Assistant</h3><p>Paste a script or begin with a template, then review the generated scene breakdown. Use the AI Assistant to suggest edits and continue refining the project on the timeline.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-media script-demo" aria-hidden="true"><span>Project</span><span>Snapshot</span><span>Restore</span></div>
+          <h3>Projects and snapshots</h3><p>Keep separate timelines for different stories. Save a snapshot before experimenting so you can restore an earlier edit if you need it.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-media export-demo" aria-hidden="true"><span>16:9</span><span>9:16</span><span>MP4</span></div>
+          <h3>Preview and export</h3><p>Preview a landscape or vertical frame, choose the export settings, and render the timeline to MP4 for your video editor or publishing workflow.</p>
+        </article>
+      </div>
+    </section>
+    <section class="workflow frame" id="workflow" aria-labelledby="workflow-title">
+      <h2 id="workflow-title">From map to motion in the full studio</h2>
+      <div class="steps">
+        <article><h3>Set the scene</h3><p>Choose a basemap and frame the locations you want to show.</p></article>
+        <article><h3>Build the timeline</h3><p>Sequence camera moves, add labels, and highlight the areas that matter.</p></article>
+        <article><h3>Render your video</h3><p>Preview your timing, then export the finished sequence as an MP4.</p></article>
+      </div>
+    </section>
+    <section class="workflow frame" id="local-setup" aria-labelledby="setup-title">
+      <h2 id="setup-title">Start the studio on your computer</h2>
+      <p>Use your full Contourframe checkout. Install Python and FFmpeg, then run these commands from the checkout root.</p>
+      <pre><code>python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m uvicorn main:app --app-dir server --host 127.0.0.1 --port 8000</code></pre>
+      <p>Keep the terminal open and select <strong>Open local studio</strong>. Use the same localhost address each time so the browser can find its saved settings.</p>
+    </section>
   </main>
-  <footer class="frame">Contourframe Studio · 0.1.0-rc.1</footer>
+  <footer class="footer">
+    <div class="frame"><a class="brand" href="/"><img src="/assets/contourframe.svg" width="30" height="30" alt="">Contourframe Studio</a><a href="http://localhost:8000/studio">Open local studio ↗</a></div>
+  </footer>
 </body>
 </html>

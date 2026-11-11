@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node tests/scene.test.js",
-    "demo": "sh scripts/render-demo.sh"
+    "demo": "sh scripts/render-demo.sh",
+    "build": "mkdir -p dist && cp index.html studio.html home.css home.js style.css studio.js scene.js dist/ && cp -r assets dist/"
   }
 }

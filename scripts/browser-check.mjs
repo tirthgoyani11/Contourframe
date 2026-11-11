@@ -6,6 +6,9 @@ import { chromium } from 'playwright';
 
 const files = new Map([
   ['/', ['index.html', 'text/html']],
+  ['/studio.html', ['studio.html', 'text/html']],
+  ['/home.css', ['home.css', 'text/css']],
+  ['/home.js', ['home.js', 'text/javascript']],
   ['/style.css', ['style.css', 'text/css']],
   ['/studio.js', ['studio.js', 'text/javascript']],
   ['/scene.js', ['scene.js', 'text/javascript']],
@@ -35,6 +38,12 @@ try {
   browser = await chromium.launch({ executablePath: process.env.CHROME_BIN || undefined });
   const page = await browser.newPage({ viewport: { width: 390, height: 850 } });
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
+  assert.match(await page.locator('h1').innerText(), /Put your story/);
+  assert.equal(
+    await page.getByRole('link', { name: 'Open local studio' }).first().getAttribute('href'),
+    'http://localhost:8000/studio',
+  );
+  await page.getByRole('link', { name: 'Try the browser sample' }).click();
   await page.locator('video').evaluate(async video => {
     video.muted = true;
     await video.play();

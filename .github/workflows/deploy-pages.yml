@@ -1,0 +1,42 @@
+name: Deploy Contourframe to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: contourframe-pages-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run build
+      - name: Publish the production build
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::Set the Cloudflare account ID variable and API token secret in GitHub Actions."
+            exit 1
+          fi
+          npx --yes wrangler@4.160.0 pages deploy dist --project-name contourframe-studio --branch main
+      - name: Check the live homepage
+        run: |
+          curl --fail --silent --show-error --retry 4 --max-time 15 \
+            https://contourframe-studio.pages.dev/ -o /tmp/contourframe-home.html
+          grep -F 'href="http://localhost:8000/studio"' /tmp/contourframe-home.html
+          echo '[Live Contourframe](https://contourframe-studio.pages.dev/)' >> "$GITHUB_STEP_SUMMARY"
