@@ -1,2 +1,9 @@
 node_modules/
 *.webm
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+test-results/
+playwright-report/
