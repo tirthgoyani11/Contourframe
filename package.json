@@ -1,0 +1,10 @@
+{
+  "name": "contourframe",
+  "version": "0.1.0-rc.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/scene.test.js",
+    "demo": "sh scripts/render-demo.sh"
+  }
+}
